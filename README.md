@@ -36,5 +36,6 @@ Boom - it's installed and running now.
 This is just in early development.   
 
  - Implement iterative re-index, only reindexAll() works right now
+ - The way I implemented admin authentication is maybe a little hacky.
  - Some people will probably want support for URL keys in the autocomplete results
 
