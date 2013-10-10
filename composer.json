@@ -3,8 +3,7 @@
     "license": "OSL-3.0",
     "type": "magento-module",
     "require": {
-        "magento-hackathon/magento-composer-installer": "dev-master",
-        "ruflin/elastica": "0.20.5.*@dev"
+        "magento-hackathon/magento-composer-installer": "dev-master"
     }
 }
 
