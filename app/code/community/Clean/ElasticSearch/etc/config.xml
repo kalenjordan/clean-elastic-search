@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Clean_ElasticSearch>
+            <version>1.0.0</version>
+        </Clean_ElasticSearch>
+    </modules>
+    <global>
+    </global>
+</config>
