@@ -6,5 +6,12 @@
         </Clean_ElasticSearch>
     </modules>
     <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <page_header>Clean_ElasticSearch_Block_Page_Header</page_header>
+                </rewrite>
+            </adminhtml>
+        </blocks>
     </global>
 </config>

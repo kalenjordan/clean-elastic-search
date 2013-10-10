@@ -1,0 +1,9 @@
+{
+    "name": "kalenjordan/elastic-search",
+    "license": "OSL-3.0",
+    "type": "magento-module",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "dev-master"
+    }
+}
+
