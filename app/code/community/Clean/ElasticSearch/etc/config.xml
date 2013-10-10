@@ -13,5 +13,20 @@
                 </rewrite>
             </adminhtml>
         </blocks>
+
+        <models>
+            <cleanelastic>
+                <class>Clean_ElasticSearch_Model</class>
+            </cleanelastic>
+        </models>
+
+        <index>
+            <indexer>
+                <cleanelastic_indexer>
+                    <model>cleanelastic/indexer</model>
+                </cleanelastic_indexer>
+            </indexer>
+        </index>
     </global>
+
 </config>
