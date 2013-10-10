@@ -4,7 +4,7 @@
     "type": "magento-module",
     "require": {
         "magento-hackathon/magento-composer-installer": "dev-master",
-        "ruflin/elastica": "dev-master"
+        "ruflin/elastica": "v0.90.2.0"
     }
 }
 
