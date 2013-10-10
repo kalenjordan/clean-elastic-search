@@ -19,3 +19,8 @@ Speed up that slow global admin search.
         "ruflin/elastica": "dev-master"
     }
 
+## To Do
+
+This is just in early development.   
+
+ - Some people will probably want support for URL keys in the autocomplete results
