@@ -33,21 +33,32 @@ class Clean_ElasticSearch_Model_Index extends Varien_Object
         return $this->_index;
     }
 
-    public function create()
-    {
-        $index = $this->getIndex();
-        $index->create(array(
-
-        ));
-
-        return $this;
-    }
-
     /**
      * @return \Elastica\Type
      */
     public function getCustomerType()
     {
         return $this->getIndex()->getType('customer');
+    }
+
+    /**
+     * @return \Elastica\Type
+     */
+    public function getOrderType()
+    {
+        return $this->getIndex()->getType('order');
+    }
+
+    public function deleteIndex()
+    {
+        try {
+            return $this->getIndex()->delete();
+        } catch (Exception $e) {
+            if (strpos($e->getMessage(), 'IndexMissingException') !== false) {
+                // Do nothing
+            } else {
+                throw $e;
+            }
+        }
     }
 }
