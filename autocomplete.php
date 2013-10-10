@@ -13,11 +13,13 @@ function accessDenied()
  */
 function getResultUrl($result)
 {
+    $baseUrl = $_GET['base_url'];
     $type = $result->getType();
+
     if ($type == 'customer') {
-        return 'customer/edit/id/' . $result->getId();
+        return $baseUrl . 'customer/edit/id/' . $result->getId();
     } elseif ($type == 'order') {
-        return 'sales_order/view/order_id/' . $result->getId();
+        return $baseUrl . 'sales_order/view/order_id/' . $result->getId();
     }
 
     throw new Exception("Can't determine the type of this result");
@@ -69,7 +71,7 @@ $totalResults = $elasticaResultSet->getTotalHits();
         </li>
     <?php endif; ?>
     <?php foreach ($elasticaResults as $elasticaResult): $data = $elasticaResult->getData(); ?>
-        <li id="customer/1/10398" relative_url="<?php echo getResultUrl($elasticaResult); ?>/">
+        <li id="customer/1/10398" url="<?php echo getResultUrl($elasticaResult); ?>/">
             <div style="float:right; color:red; font-weight:bold;">[
                 <?php echo $elasticaResult->getType(); ?>
             ]</div>
