@@ -1,3 +1,3 @@
 app/etc/modules/Clean_ElasticSearch.xml                     app/etc/modules/Clean_ElasticSearch.xml
 app/code/community/Clean/ElasticSearch                      app/code/community/Clean/ElasticSearch
-autocomplete.php                                            autocomplete.php
+admin-global-search-autocomplete.php                        admin-global-search-autocomplete.php
