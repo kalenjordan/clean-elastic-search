@@ -24,18 +24,11 @@ class Clean_ElasticSearch_Model_Indexer extends Mage_Index_Model_Indexer_Abstrac
 
     protected function _processEvent(Mage_Index_Model_Event $event)
     {
-        $data = $event->getNewData();
-        if (!empty($data['catalog_product_eav_reindex_all'])) {
-            $this->reindexAll();
-        }
-        if (empty($data['catalog_product_eav_skip_call_event_handler'])) {
-            $this->callEventHandler($event);
-        }
+        // todokj do stuff here
     }
 
     public function reindexAll()
     {
-        Mage::getSingleton('cleanelastic/index')->deleteIndex();
         Mage::getModel('cleanelastic/indexType_product')->index();
         Mage::getModel('cleanelastic/indexType_order')->index();
         Mage::getModel('cleanelastic/indexType_customer')->index();

@@ -8,7 +8,9 @@ abstract class Clean_ElasticSearch_Model_IndexType_Abstract extends Varien_Objec
 
     public function index()
     {
+        $this->delete();
         $indexType = $this->_getIndexType();
+
         $collection = $this->_getCollection();
 
         foreach ($collection as $item) {
@@ -20,5 +22,18 @@ abstract class Clean_ElasticSearch_Model_IndexType_Abstract extends Varien_Objec
     protected function _getIndexType()
     {
         return Mage::getSingleton('cleanelastic/index')->getIndex()->getType($this->_getIndexTypeCode());
+    }
+
+    public function delete()
+    {
+        try {
+            return $this->_getIndexType()->delete();
+        } catch (Exception $e) {
+            if (strpos($e->getMessage(), 'TypeMissingException') !== false) {
+                // Do nothing
+            } else {
+                throw $e;
+            }
+        }
     }
 }

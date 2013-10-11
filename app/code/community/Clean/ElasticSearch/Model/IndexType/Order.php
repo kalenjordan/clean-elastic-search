@@ -9,6 +9,8 @@ class Clean_ElasticSearch_Model_IndexType_Order extends Clean_ElasticSearch_Mode
 
     public function index()
     {
+        $this->delete();
+
         Mage::getSingleton('cleanelastic/resource_iterator_batched')->walk(
             $this->_getCollection(),
             array(array($this, 'reindexOrder'))
