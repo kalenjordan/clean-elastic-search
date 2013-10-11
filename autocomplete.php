@@ -8,6 +8,19 @@ function accessDenied()
     exit;
 }
 
+function getElasticaConfig()
+{
+    $xml = new SimpleXMLElement(file_get_contents('app/etc/local.xml'));
+    if (!isset($xml->global->elasticsearch)) {
+        throw new Exception("Missing elasticsearch config in local.xml");
+    }
+
+    return array(
+        'host' => (string)$xml->global->elasticsearch->host,
+        'port' => (string)$xml->global->elasticsearch->port
+    );
+}
+
 /**
  * @param $result \Elastica\Result
  */
@@ -37,7 +50,7 @@ function getName($result)
     $data = $result->getData();
 
     if (in_array($type, array('order', 'customer'))) {
-        return $data['firstname'] . ' *scrubbed*';
+        return $data['fullname'];
     } elseif ($type == 'config') {
         return $data['field'];
     }
@@ -73,10 +86,7 @@ if (! isset($_SESSION['admin']['user'])) {
 }
 
 // todokj this should be configurable
-$elasticaClient = new \Elastica\Client(array(
-    'host' => 'localhost',
-    'port' => 9200
-));
+$elasticaClient = new \Elastica\Client(getElasticaConfig());
 $elasticaIndex = $elasticaClient->getIndex('magento');
 
 $query = isset($_REQUEST['query']) ? $_REQUEST['query'] : null;
