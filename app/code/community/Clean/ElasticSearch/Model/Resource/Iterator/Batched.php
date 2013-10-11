@@ -68,7 +68,7 @@ class Clean_ElasticSearch_Model_Resource_Iterator_Batched extends Varien_Object
         $group = $collection->getSelect()->getPart('group');
 
         if (!empty($group)) {
-            $this->_group = $group;
+            $this->setData('group', $group);
             $collection->getSelect()->reset('group');
         }
 
@@ -80,8 +80,8 @@ class Clean_ElasticSearch_Model_Resource_Iterator_Batched extends Varien_Object
      */
     protected function _afterCollectionCount($collection)
     {
-        if (isset($this->_group)) {
-            $collection->getSelect()->setPart('group', $this->_group);
+        if ($this->hasData('group')) {
+            $collection->getSelect()->setPart('group', $this->getData('group'));
         }
 
         return $this;
