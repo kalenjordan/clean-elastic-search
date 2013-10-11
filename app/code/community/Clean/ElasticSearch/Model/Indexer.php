@@ -36,6 +36,7 @@ class Clean_ElasticSearch_Model_Indexer extends Mage_Index_Model_Indexer_Abstrac
     public function reindexAll()
     {
         Mage::getSingleton('cleanelastic/index')->deleteIndex();
+        Mage::getModel('cleanelastic/indexType_product')->index();
         Mage::getModel('cleanelastic/indexType_order')->index();
         Mage::getModel('cleanelastic/indexType_customer')->index();
         Mage::getModel('cleanelastic/indexType_config')->index();

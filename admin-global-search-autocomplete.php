@@ -46,6 +46,8 @@ function getResultUrl($result)
         return $baseUrl . 'customer/edit/id/' . $result->getId();
     } elseif ($type == 'order') {
         return $baseUrl . 'sales_order/view/order_id/' . $result->getId();
+    } elseif ($type == 'product') {
+        return $baseUrl . 'catalog_product/edit/id/' . $result->getId();
     } elseif ($type == 'config') {
         return $baseUrl . 'system_config/edit/section/' . $data['section_code'];
     }
@@ -63,6 +65,8 @@ function getName($result)
 
     if (in_array($type, array('order', 'customer'))) {
         return $data['fullname'];
+    } elseif ($type == 'product') {
+        return $data['name'];
     } elseif ($type == 'config') {
         return $data['field'];
     }
@@ -81,6 +85,8 @@ function getDescription($result)
         return $data['email'];
     } elseif ($result->getType() == 'order') {
         return $data['increment_id'] . ' - ' . $data['sku_list'];
+    } elseif ($result->getType() == 'product') {
+        return $data['description'];
     } elseif ($result->getType() == 'config') {
         return $data['section'] . ' > ' . $data['group'];
     }
@@ -98,7 +104,12 @@ if (!$query) {
 }
 
 $elasticaQueryString  = new \Elastica\Query\MultiMatch();
-$elasticaQueryString->setFields(array('firstname', 'lastname', 'fullname', 'email', 'increment_id', 'field', 'section', 'group'));
+$elasticaQueryString->setFields(array(
+    'firstname', 'lastname', 'fullname',
+    'email', 'increment_id',
+    'field', 'section', 'group',
+    'name'
+));
 $elasticaQueryString->setQuery($query);
 $elasticaQueryString->setParam('type', 'phrase_prefix');
 
@@ -120,7 +131,7 @@ $totalResults = $elasticaResultSet->getTotalHits();
         </li>
     <?php endif; ?>
     <?php foreach ($elasticaResults as $elasticaResult): $data = $elasticaResult->getData(); ?>
-        <li id="customer/1/10398" url="<?php echo getResultUrl($elasticaResult); ?>/">
+        <li id="" url="<?php echo getResultUrl($elasticaResult); ?>/">
             <div style="float:right; color:red; font-weight:bold;">[
                 <?php echo $elasticaResult->getType(); ?>
             ]</div>
