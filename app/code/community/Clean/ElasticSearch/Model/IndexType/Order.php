@@ -54,7 +54,7 @@ class Clean_ElasticSearch_Model_IndexType_Order extends Clean_ElasticSearch_Mode
             'lastname'      => $order->getCustomerLastname(),
             'fullname'      => $order->getCustomerFirstname() . ' ' . $order->getCustomerLastname(),
             'increment_id'  => $order->getIncrementId(),
-            'sku_list'      => $orderData['sku_list'],
+            'sku_list'      => $order->getData('sku_list')
         );
 
         $document = new \Elastica\Document($data['id'], $data);
