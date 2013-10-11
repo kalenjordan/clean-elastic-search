@@ -35,51 +35,10 @@ class Clean_ElasticSearch_Model_Indexer extends Mage_Index_Model_Indexer_Abstrac
 
     public function reindexAll()
     {
-        $this->_deleteElasticaIndex();
-        $this->_reindexAllOrders();
-        $this->_reindexAllCustomers();
-    }
-
-    protected function _deleteElasticaIndex()
-    {
         Mage::getSingleton('cleanelastic/index')->deleteIndex();
-    }
-
-    protected function _getCustomers()
-    {
-        $customers = Mage::getResourceModel('customer/customer_collection')
-            ->addAttributeToSelect('firstname')
-            ->addAttributeToSelect('lastname');
-        //$customers->setPageSize(1000);
-
-        return $customers;
-    }
-
-    protected function _reindexAllCustomers()
-    {
-        $customerType = Mage::getSingleton('cleanelastic/index')->getCustomerType();
-
-        foreach ($this->_getCustomers() as $customer) {
-            $customerDocument = $this->_prepareCustomerDocument($customer);
-            $customerType->addDocument($customerDocument);
-        }
-    }
-
-    /**
-     * @param $customer Mage_Customer_Model_Customer
-     */
-    protected function _prepareCustomerDocument($customer)
-    {
-        $data = array(
-            'id'            => $customer->getId(),
-            'email'         => $customer->getData('email'),
-            'firstname'     => $customer->getData('firstname'),
-            'lastname'      => $customer->getData('lastname'),
-            'fullname'      => $customer->getData('firstname') . ' ' . $customer->getData('lastname'),
-        );
-
-        $document = new \Elastica\Document($customer->getId(), $data);
-        return $document;
+        $this->_reindexAllOrders();
+        Mage::getModel('cleanelastic/indexType_customer')->index();
+        Mage::getModel('cleanelastic/indexType_config')->index();
     }
 
     protected function _getOrders()

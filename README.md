@@ -31,6 +31,26 @@ Boom - it's installed and running now.
         "ruflin/elastica": "dev-master"
     }
 
+### 3. Speed up the onKeyPress timeout
+
+This will speed up the rate at which the autocomplete fires.
+
+    # app/design/adminhtml/default/default/template/page/header.phtml
+
+    new Ajax.Autocompleter(
+        'global_search',
+        'global_search_autocomplete',
+        '<?php echo $this->getUrl('adminhtml/index/globalSearch') ?>',
+        {
+            paramName:"query",
+            minChars:2,
+            indicator:"global_search_indicator",
+            updateElement:getSelectionId,
+            evalJSON:'force',
+            **frequency: 0.01**
+        }
+    );
+
 ## To Do
 
 This is just in early development.   
@@ -38,4 +58,5 @@ This is just in early development.
  - Implement iterative re-index, only reindexAll() works right now
  - The way I implemented admin authentication is maybe a little hacky.
  - Some people will probably want support for URL keys in the autocomplete results
+ - Use bulk API to insert documents when doing reindexAll()
 
