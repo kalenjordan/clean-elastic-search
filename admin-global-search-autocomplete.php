@@ -2,10 +2,22 @@
 
 require_once('vendor/autoload.php');
 
-function accessDenied()
+function checkAccess()
 {
-    echo 'Access denied';
-    exit;
+    $xml = new SimpleXMLElement(file_get_contents('app/etc/local.xml'));
+    if (!isset($xml->global->elasticsearch->secret)) {
+        throw new Exception("Missing elasticsearch secret config in local.xml");
+    }
+
+    if (!isset($_GET['key'])) {
+        throw new Exception("Missing or invalid key");
+    }
+
+    if ($_GET['key'] != (string)$xml->global->elasticsearch->secret) {
+        throw new Exception("Missing or invalid key");
+    }
+
+    return true;
 }
 
 function getElasticaConfig()
@@ -74,16 +86,7 @@ function getDescription($result)
     }
 }
 
-/**
- * Need to do this so we can restrict access to logged-in admin users.
- */
-session_save_path('var/session');
-session_name('adminhtml');
-session_start();
-
-if (! isset($_SESSION['admin']['user'])) {
-    accessDenied();
-}
+checkAccess();
 
 // todokj this should be configurable
 $elasticaClient = new \Elastica\Client(getElasticaConfig());
