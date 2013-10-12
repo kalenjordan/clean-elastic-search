@@ -27,6 +27,17 @@
                 </cleanelastic_indexer>
             </indexer>
         </index>
+
+        <events>
+            <customer_save_commit_after>
+                <observers>
+                    <cleanelastic_customer_save_commit_after>
+                        <class>Clean_ElasticSearch_Model_Observer</class>
+                        <method>customerSaveCommitAfter</method>
+                    </cleanelastic_customer_save_commit_after>
+                </observers>
+            </customer_save_commit_after>
+        </events>
     </global>
 
 </config>

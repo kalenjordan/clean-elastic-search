@@ -34,4 +34,26 @@ class Clean_ElasticSearch_Model_IndexType_Customer extends Clean_ElasticSearch_M
         $document = new \Elastica\Document($customer->getId(), $data);
         return $document;
     }
+
+    /**
+     * @param $customer Mage_Customer_Model_Customer
+     */
+    public function updateDocument($customer)
+    {
+        $document = $this->_prepareDocument($customer);
+        $this->_getIndexType()->updateDocument($document);
+
+        return $this;
+    }
+
+    /**
+     * @param $customer Mage_Customer_Model_Customer
+     */
+    public function addDocument($customer)
+    {
+        $document = $this->_prepareDocument($customer);
+        $this->_getIndexType()->addDocument($document);
+
+        return $this;
+    }
 }
