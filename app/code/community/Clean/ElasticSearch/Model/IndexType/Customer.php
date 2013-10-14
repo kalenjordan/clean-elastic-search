@@ -36,6 +36,8 @@ class Clean_ElasticSearch_Model_IndexType_Customer extends Clean_ElasticSearch_M
     }
 
     /**
+     * todokj try/catch so that if elastic search isn't runnin it will log an exception
+     * but not block checkout
      * @param $customer Mage_Customer_Model_Customer
      */
     public function updateDocument($customer)
