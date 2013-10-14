@@ -14,6 +14,12 @@
             </adminhtml>
         </blocks>
 
+        <helpers>
+            <cleanelastic>
+                <class>Clean_ElasticSearch_Helper</class>
+            </cleanelastic>
+        </helpers>
+
         <models>
             <cleanelastic>
                 <class>Clean_ElasticSearch_Model</class>

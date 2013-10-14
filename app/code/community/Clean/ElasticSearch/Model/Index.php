@@ -8,10 +8,10 @@ class Clean_ElasticSearch_Model_Index extends Varien_Object
             return $this->_client;
 
         }
-        // todokj this should be configurable
+
         $elasticaClient = new \Elastica\Client(array(
-            'host' => 'localhost',
-            'port' => 9200
+            'host' => Mage::helper('cleanelastic')->getHost(),
+            'port' => Mage::helper('cleanelastic')->getPort(),
         ));
 
         $this->_client = $elasticaClient;
