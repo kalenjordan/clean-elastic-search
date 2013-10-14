@@ -31,6 +31,8 @@ abstract class Clean_ElasticSearch_Model_IndexType_Abstract extends Varien_Objec
         } catch (Exception $e) {
             if (strpos($e->getMessage(), 'TypeMissingException') !== false) {
                 // Do nothing
+            } elseif ((strpos($e->getMessage(), 'IndexMissingException') !== false)) {
+                // Do nothing
             } else {
                 throw $e;
             }

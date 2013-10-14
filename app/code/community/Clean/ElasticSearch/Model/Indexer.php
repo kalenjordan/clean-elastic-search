@@ -17,15 +17,14 @@ class Clean_ElasticSearch_Model_Indexer extends Mage_Index_Model_Indexer_Abstrac
         $this->_init('cleanelastic/indexer');
     }
 
-    protected function _registerEvent(Mage_Index_Model_Event $event)
-    {
-        // todokj register some stuff
-    }
-
-    protected function _processEvent(Mage_Index_Model_Event $event)
-    {
-        // todokj do stuff here
-    }
+    /**
+     * Handling the incremental indexing in observers
+     *
+     * @see Clean_ElasticSearch_Model_Observer::customerSaveCommitAfter()
+     * @param Mage_Index_Model_Event $event
+     */
+    protected function _registerEvent(Mage_Index_Model_Event $event) { }
+    protected function _processEvent(Mage_Index_Model_Event $event) { }
 
     public function reindexAll()
     {

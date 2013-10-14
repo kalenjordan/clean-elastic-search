@@ -20,17 +20,25 @@ function checkAccess()
     return true;
 }
 
-function getElasticaConfig()
+function getElasticaIndex()
 {
     $xml = new SimpleXMLElement(file_get_contents('app/etc/local.xml'));
     if (!isset($xml->global->elasticsearch)) {
         throw new Exception("Missing elasticsearch config in local.xml");
     }
 
-    return array(
+    if (! (string)$xml->global->elasticsearch->index) {
+        throw new Exception("Missing elasticsearch index name in local.xml");
+    }
+
+    $elasticaClient = new \Elastica\Client(array(
         'host' => (string)$xml->global->elasticsearch->host,
-        'port' => (string)$xml->global->elasticsearch->port
-    );
+        'port' => (string)$xml->global->elasticsearch->port,
+    ));
+
+    $index = $elasticaClient->getIndex((string)$xml->global->elasticsearch->index);
+
+    return $index;
 }
 
 /**
@@ -94,9 +102,7 @@ function getDescription($result)
 
 checkAccess();
 
-// todokj this should be configurable
-$elasticaClient = new \Elastica\Client(getElasticaConfig());
-$elasticaIndex = $elasticaClient->getIndex('magento');
+$elasticaIndex = getElasticaIndex();
 
 $query = isset($_REQUEST['query']) ? $_REQUEST['query'] : null;
 if (!$query) {

@@ -42,8 +42,12 @@ class Clean_ElasticSearch_Model_IndexType_Customer extends Clean_ElasticSearch_M
      */
     public function updateDocument($customer)
     {
-        $document = $this->_prepareDocument($customer);
-        $this->_getIndexType()->updateDocument($document);
+        try {
+            $document = $this->_prepareDocument($customer);
+            $this->_getIndexType()->updateDocument($document);
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
 
         return $this;
     }
@@ -53,8 +57,12 @@ class Clean_ElasticSearch_Model_IndexType_Customer extends Clean_ElasticSearch_M
      */
     public function addDocument($customer)
     {
-        $document = $this->_prepareDocument($customer);
-        $this->_getIndexType()->addDocument($document);
+        try {
+            $document = $this->_prepareDocument($customer);
+            $this->_getIndexType()->addDocument($document);
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
 
         return $this;
     }

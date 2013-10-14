@@ -27,7 +27,7 @@ class Clean_ElasticSearch_Model_Index extends Varien_Object
             return $this->_index;
         }
 
-        $elasticaIndex = $this->getClient()->getIndex('magento');
+        $elasticaIndex = $this->getClient()->getIndex(Mage::helper('cleanelastic')->getIndexName());
 
         $this->_index = $elasticaIndex;
         return $this->_index;
