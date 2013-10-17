@@ -55,8 +55,10 @@ This will speed up the rate at which the autocomplete fires.
 
 This is just in early development.   
 
- - Implement iterative re-index, only reindexAll() works right now
- - The way I implemented admin authentication is maybe a little hacky.
+ - Might need a more bulletproof authentication scheme, but bootstrapping Magento isn't an option
+   for performance reasons.
+
  - Some people will probably want support for URL keys in the autocomplete results
+
  - Use bulk API to insert documents when doing reindexAll()
 
