@@ -38,4 +38,28 @@ abstract class Clean_ElasticSearch_Model_IndexType_Abstract extends Varien_Objec
             }
         }
     }
+
+    public function updateDocument($model)
+    {
+        try {
+            $document = $this->_prepareDocument($model);
+            $this->_getIndexType()->updateDocument($document);
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+
+        return $this;
+    }
+
+    public function addDocument($model)
+    {
+        try {
+            $document = $this->_prepareDocument($model);
+            $this->_getIndexType()->addDocument($document);
+        } catch (Exception $e) {
+            Mage::logException($e);
+        }
+
+        return $this;
+    }
 }

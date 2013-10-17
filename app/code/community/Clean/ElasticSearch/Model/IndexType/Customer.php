@@ -34,36 +34,4 @@ class Clean_ElasticSearch_Model_IndexType_Customer extends Clean_ElasticSearch_M
         $document = new \Elastica\Document($customer->getId(), $data);
         return $document;
     }
-
-    /**
-     * todokj try/catch so that if elastic search isn't runnin it will log an exception
-     * but not block checkout
-     * @param $customer Mage_Customer_Model_Customer
-     */
-    public function updateDocument($customer)
-    {
-        try {
-            $document = $this->_prepareDocument($customer);
-            $this->_getIndexType()->updateDocument($document);
-        } catch (Exception $e) {
-            Mage::logException($e);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param $customer Mage_Customer_Model_Customer
-     */
-    public function addDocument($customer)
-    {
-        try {
-            $document = $this->_prepareDocument($customer);
-            $this->_getIndexType()->addDocument($document);
-        } catch (Exception $e) {
-            Mage::logException($e);
-        }
-
-        return $this;
-    }
 }

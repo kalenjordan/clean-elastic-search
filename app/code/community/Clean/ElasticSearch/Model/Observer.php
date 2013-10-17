@@ -20,6 +20,42 @@ class Clean_ElasticSearch_Model_Observer extends Varien_Object
     }
 
     /**
+     * @param $observer Varien_Event_Observer
+     */
+    public function salesOrderPlaceAfter($observer)
+    {
+        /** @var Mage_Sales_Model_Order $order */
+        $order = $observer->getData('order');
+
+        if ($this->_needToIndexOrder($order)) {
+            $this->_indexOrder($order);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $order Mage_Sales_Model_Order
+     */
+    protected function _needToIndexOrder($order)
+    {
+        if (!$order->getOrigData()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $order Mage_Sales_Model_Order
+     */
+    protected function _indexOrder($order)
+    {
+        $indexType = Mage::getSingleton('cleanelastic/indexType_order');
+        $indexType->addDocument($order);
+    }
+
+    /**
      * @param $customer Mage_Customer_Model_Customer
      */
     protected function _needToIndexCustomer($customer)

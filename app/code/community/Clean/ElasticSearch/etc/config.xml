@@ -43,6 +43,14 @@
                     </cleanelastic_customer_save_commit_after>
                 </observers>
             </customer_save_commit_after>
+            <sales_order_place_after>
+                <observers>
+                    <cleanelastic_sales_order_place_after>
+                        <class>Clean_ElasticSearch_Model_Observer</class>
+                        <method>salesOrderPlaceAfter</method>
+                    </cleanelastic_sales_order_place_after>
+                </observers>
+            </sales_order_place_after>
         </events>
     </global>
 
